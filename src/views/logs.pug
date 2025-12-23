@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container
+    p
+     a.back-link(href='/') ← Вернуться на главную
+
+    .page-header
+      h1= title
+      if exceedsLimit
+        .alert-warning ⚠️ Вывод ограничен #{limit} записями
+
+    if logs && logs.length > 0
+      table.result-table
+        thead
+          tr
+            th Timestamp
+            th Строка лога
+        tbody
+          each log in logs
+            tr
+              td.timestamp-cell= log.timestamp
+              td.log-cell= log.str
+    else
+      .empty-state
+        p Записей не найдено

@@ -1,0 +1,132 @@
+extends layout
+
+block content
+  .container
+    h1= title
+
+    .upload-section
+      button#show-upload-form.btn-secondary 📤 Загрузка логов
+
+      form#upload-form.upload-form.hidden(action='/upload' method='POST' enctype='multipart/form-data')
+        .file-upload-wrapper
+          input#file-input(type='file' name='logfile' accept='.log,.txt' required)
+          label.file-label(for='file-input')
+        button.btn-upload(type='submit') Загрузить
+
+    script.
+      document.getElementById('show-upload-form').addEventListener('click', () => {
+        document.getElementById('upload-form').classList.toggle('hidden');
+      });
+
+      const fileInput = document.getElementById('file-input');
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files[0]) {
+          document.getElementById('file-name').textContent = e.target.files[0].name;
+        }
+      });
+
+    if !recipients.list || recipients.list.length === 0
+      .empty-state
+        .empty-icon 📭
+        h2 Данные отсутствуют
+        p Загрузите файл логов для начала работы
+
+        .data-hint
+          ol.hint-steps
+            li Нажмите "📤 Загрузка логов"
+            li Выберите файл 
+              code sample-data/sample.log
+              |  из папки проекта
+            li Нажмите "Загрузить"
+
+          p.hint-note
+            strong Примечание: 
+            | Файл 
+            code sample.log
+            |  уже находится в папке проекта после клонирования репозитория
+    else
+      div.stats-summary
+        div.stat-card
+          div.stat-number= numbers.recipientsNumber
+          div.stat-label Получателей
+        div.stat-card
+          div.stat-number= numbers.logsNumber
+          div.stat-label Сообщений
+        div.stat-card.stat-card-link
+          a(href="#stats") 📊 Статистика по доменам
+
+
+      div.recipients
+        div
+          h2 Получатели
+          p.recipients-info= recipients.limit > 0 ? `Показаны топ-${recipients.limit} получателей по количеству сообщений` : ''
+
+      div.search-controls
+        div.search-box
+          label.search-label(for="search") Фильтр на странице
+          input#search.search-input(type="text", placeholder="🔍 Начните вводить email...")
+
+        div.direct-search-box.relative
+          label.search-label(for="address-input") Поиск по запросу
+          #address-error ❌ Неверный email
+          form#address-form.direct-search-form(action="/logs", method="GET")
+            input#address-input.search-input(type="text", name="address", placeholder="✉️ Введите email получателя", required)
+            button.btn-search(type="submit") Найти
+
+
+      div.recipients-grid
+        each recipient in recipients.list
+          a.recipient-card(href=`/logs/${encodeURIComponent(recipient.address)}`)
+            .recipient-email= recipient.address
+            .recipient-count
+              span.badge= recipient.count
+              |  сообщений
+
+    script.
+      document.getElementById('search').addEventListener('input', (e) => {
+        const filter = e.target.value.toLowerCase();
+        document.querySelectorAll('.recipient-card').forEach(card => {
+          const email = card.querySelector('.recipient-email').textContent.toLowerCase();
+          card.style.display = email.includes(filter) ? 'block' : 'none';
+        });
+      });
+
+      document.getElementById('address-form').addEventListener('submit', function(e) {
+        const emailInput = document.getElementById('address-input');
+        const email = emailInput.value.trim();
+        const emailRegex = /^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!emailRegex.test(email)) {
+          e.preventDefault();
+          const errorDiv = document.getElementById('address-error');
+          if (errorDiv) {
+            errorDiv.textContent = '❌ Неверный email';
+            errorDiv.style.display = 'block';
+            emailInput.focus();
+
+            setTimeout(() => {
+              errorDiv.style.display = 'none';
+            }, 3000);
+          }
+        }
+      });
+
+    // Tab switching
+    //- function showTab(tabName) {
+    //-   // Hide all tabs
+    //-   document.querySelectorAll('.tab-content').forEach(tab => {
+    //-     tab.classList.remove('active');
+    //-   });
+    //-   document.querySelectorAll('.tab-button').forEach(btn => {
+    //-     btn.classList.remove('active');
+    //-   });
+
+    //-   // Show selected tab
+    //-   if (tabName === 'recipients') {
+    //-     document.getElementById('recipients-tab').classList.add('active');
+    //-     document.querySelectorAll('.tab-button')[0].classList.add('active');
+    //-   } else if (tabName === 'results') {
+    //-     document.getElementById('results-tab').classList.add('active');
+    //-     document.querySelectorAll('.tab-button')[1].classList.add('active');
+    //-   }
+    //- }

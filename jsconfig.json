@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        // Включает TypeScript-проверку для .js файлов
+        // Как если бы каждый JS файл начинался с // @ts-check
+        "checkJs": true,
+        // Разрешает переменные без явного типа function add(a, b)
+        // Если true требовал бы function add(a: number, b: number)
+        // Для JS Обычно ставим false, иначе будет слишком строго
+        "noImplicitAny": false,
+        // true будет требовать аннотацию типов и более строгую проверку
+        "strict": false,
+        // Явно указываем, что это для проверки
+        "module": "esnext",
+        // Целевая версия JavaScript
+        "target": "es2022",
+        // Как разрешать модули (как в Node.js)
+        "moduleResolution": "node"
+        // "module": "commonjs", // es6 для import/export
+    },
+    // Явно указываем, какие файлы проверять
+    "include": ["**/*.js"],
+    // Исключаем ненужные папки
+    "exclude": ["node_modules", "**/node_modules/*,", "dist", "build"]
+}
