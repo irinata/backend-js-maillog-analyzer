@@ -11,7 +11,9 @@ const MAX_ATTEMPTS = 5;
 
 const { APP_DB_USER, APP_DB_PASSWORD, APP_DB_HOST, APP_DB_PORT, APP_DB_NAME } = process.env;
 
-const DATABASE_URI = `postgresql://${APP_DB_USER}:${APP_DB_PASSWORD}@${APP_DB_HOST}:${APP_DB_PORT}/${APP_DB_NAME}`;
+const DATABASE_URI =
+  process.env.DATABASE_URL ||
+  `postgresql://${APP_DB_USER}:${APP_DB_PASSWORD}@${APP_DB_HOST}:${APP_DB_PORT}/${APP_DB_NAME}`;
 
 let pool = null;
 
