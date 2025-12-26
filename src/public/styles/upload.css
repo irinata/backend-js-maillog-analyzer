@@ -1,18 +1,13 @@
 .upload-section {
-  /* margin-bottom: 32px;
-  
-  background: #f7fafc;
-  border-radius: 8px; */
   padding-bottom: 20px;
-  /* border: 2px dashed #cbd5e0; */
 }
 
 .empty-state {
   text-align: center;
-  padding: 60px 20px;
+  padding: 50px 20px;
   background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
   border-radius: 12px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .empty-icon {
@@ -35,16 +30,11 @@
   border: none;
   background: white;
   color: #667eea;
-  /* border: 2px solid #667eea; */
-  /* padding: 12px 24px; */
-  /* border-radius: 6px; */
   font-weight: 600;
   cursor: pointer;
-  /* transition: all 0.2s; */
 }
 
 .btn-secondary:hover {
-  /* background: #667eea; */
   color: #3e5ef0;
 }
 

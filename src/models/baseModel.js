@@ -1,6 +1,6 @@
 import { sql } from 'slonik';
 
-function prepareInsert(tableName, tableFields, records) {
+export function prepareInsert(tableName, tableFields, records) {
   // safe list of filed names
   const safeTableFields = sql.join(
     tableFields.map((field) => sql.identifier([field])),
@@ -22,5 +22,3 @@ function prepareInsert(tableName, tableFields, records) {
     VALUES ${allValues}
   `;
 }
-
-export default { prepareInsert };

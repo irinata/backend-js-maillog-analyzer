@@ -2,8 +2,12 @@ import debugLib from 'debug';
 import { Readable } from 'node:stream';
 import readline from 'node:readline';
 import parseLogFile from '../services/parserService.js';
-import Log from '../services/logService.js';
-import Msg from '../services/messageService.js';
+import {
+  getRecipientsAndLogsNumbers,
+  getRecipientsAndMessages,
+  insertData as insertLogData,
+} from '../services/logService.js';
+import { insertData as insertMessageData } from '../services/messageService.js';
 
 const debug = debugLib('app:controller');
 
@@ -11,14 +15,14 @@ function formatNumber(num) {
   return new Intl.NumberFormat().format(num);
 }
 
-async function index(req, res) {
+export async function index(req, res) {
   debug(`GET ${req.originalUrl}`);
   debug('Awaiting getRecipientsAndLogsNumbers() service');
   debug('Awaiting getRecipientsAndMessages() service');
 
   const [data1, data2] = await Promise.all([
-    Log.getRecipientsAndLogsNumbers(),
-    Log.getRecipientsAndMessages(),
+    getRecipientsAndLogsNumbers(),
+    getRecipientsAndMessages(),
   ]);
 
   const numbers = {
@@ -38,31 +42,29 @@ async function index(req, res) {
   });
 }
 
-async function uploadLogs(req, res) {
+export async function uploadLogs(req, res) {
   debug(`File '${req.file.originalname}' uploaded`);
-  const buffer = req.file.buffer; // uploaded data
-  const stream = Readable.from(buffer); // create stream from buffer
+  const buffer = req.file.buffer;
+  const stream = Readable.from(buffer);
 
   const content = readline.createInterface({
     input: stream,
-    crlfDelay: Infinity, // корректно обрабатывает и \n, и \r\n
+    crlfDelay: Infinity,
   });
 
   debug('Parsing data...');
   const parsed = await parseLogFile(content);
   debug('Inserting data into tables...');
   try {
-    await Msg.insertData(parsed.messages);
-    await Log.insertData(parsed.logs);
+    await insertMessageData(parsed.messages);
+    await insertLogData(parsed.logs);
+
+    debug(parsed.messages.length, 'records inserted into table message');
+    debug(parsed.logs.length, 'records inserted into table log');
+    debug(parsed.messages.length + parsed.logs.length, 'records inserted into database.');
   } catch (error) {
     debug(error);
   }
 
-  debug(parsed.messages.length, 'records inserted into table message');
-  debug(parsed.logs.length, 'records inserted into table log');
-  debug(parsed.messages.length + parsed.logs.length, 'records inserted into database.');
-
   res.redirect('/');
 }
-
-export default { index, uploadLogs };

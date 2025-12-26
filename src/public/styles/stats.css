@@ -1,0 +1,266 @@
+html {
+  overflow-y: scroll;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.back-link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 28px;
+}
+
+.page-subtitle {
+  color: #718096;
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: #f7fafc;
+  padding: 4px;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.toggle-btn {
+  padding: 8px 20px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #718096;
+  transition: all 0.2s;
+}
+
+.toggle-btn.active {
+  background: white;
+  color: #667eea;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.view-content {
+  display: none;
+}
+
+.view-content.active {
+  display: block;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.stats-table thead {
+  background: #667eea;
+  color: white;
+}
+
+.stats-table th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.stats-table th.center {
+  text-align: center;
+}
+
+.stats-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background 0.2s;
+}
+
+.stats-table tbody tr:hover {
+  background: #f7fafc;
+}
+
+.stats-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.stats-table td {
+  padding: 16px 14px;
+  color: #4a5568;
+}
+
+.domain-cell {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 15px;
+}
+
+.success-cell {
+  color: #38a169;
+  font-weight: 600;
+  text-align: center;
+}
+
+.failed-cell {
+  color: #e53e3e;
+  font-weight: 600;
+  text-align: center;
+}
+
+.total-cell {
+  color: #4a5568;
+  font-weight: 500;
+  text-align: center;
+}
+
+.progress-cell {
+  min-width: 200px;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 24px;
+  background: #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 12px;
+}
+
+.progress-fill.good {
+  background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+}
+
+.progress-fill.medium {
+  background: linear-gradient(90deg, #f6ad55 0%, #ed8936 100%);
+}
+
+.progress-fill.bad {
+  background: linear-gradient(90deg, #fc8181 0%, #e53e3e 100%);
+}
+
+.progress-text {
+  font-weight: 600;
+  color: #2d3748;
+  min-width: 45px;
+  text-align: right;
+}
+
+.chart-container {
+  position: relative;
+  height: 500px;
+  margin-top: 20px;
+}
+
+.chart-controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.chart-btn {
+  padding: 10px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.chart-btn:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+}
+
+.chart-btn.active {
+  background: #5568d3;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.summary-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.summary-card.success {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.summary-card.failed {
+  background: linear-gradient(135deg, #fc8181 0%, #e53e3e 100%);
+}
+
+.summary-number {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.summary-label {
+  font-size: 13px;
+  opacity: 0.95;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

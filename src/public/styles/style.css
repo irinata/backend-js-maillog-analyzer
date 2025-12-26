@@ -65,6 +65,7 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
   margin-bottom: 40px;
+  align-items: stretch;
 }
 
 .stat-card {
@@ -83,6 +84,8 @@ h2 {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   cursor: pointer;
   transition: transform 0.2s;
+  text-decoration: none;
+  color: white;
 }
 
 .stat-card-link:hover {
@@ -418,9 +421,4 @@ h2 {
   .search-input {
     width: 100%;
   }
-
-  /* .recipients-grid {
-    margin-top: 12px;
-    grid-template-columns: 1fr;
-  } */
 }

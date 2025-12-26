@@ -2,7 +2,7 @@ import express from 'express';
 import createError from 'http-errors';
 import asyncHandler from 'express-async-handler';
 import debugLib from 'debug';
-import logController from '../controllers/logController.js';
+import * as logController from '../controllers/logController.js';
 
 const debug = debugLib('app:route');
 const router = express.Router();
@@ -19,6 +19,8 @@ router.get('/', (req, res, next) => {
   debug(`Redirecting to /logs/${address}`);
   res.redirect(`/logs/${encodeURIComponent(address)}`);
 });
+
+router.get('/stats', asyncHandler(logController.getStats));
 
 router.get('/:address', asyncHandler(logController.getLogsByAddress));
 

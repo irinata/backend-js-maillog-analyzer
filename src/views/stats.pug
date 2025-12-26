@@ -1,0 +1,165 @@
+extends layout
+
+block content
+  script(src="https://cdn.jsdelivr.net/npm/chart.js")
+  .container
+    p
+      a.back-link(href='/') ← Вернуться на главную
+    h1= title
+
+    p.page-subtitle Анализ доставки сообщений по доменам получателей
+
+    .summary-cards
+      .summary-card
+        .summary-number= totalDomains
+        .summary-label Доменов
+      .summary-card.success
+        .summary-number= totalDelivered
+        .summary-label Доставлено
+      .summary-card.failed
+        .summary-number= totalFailed
+        .summary-label Не доставлено
+
+    .view-toggle
+      button.toggle-btn.active(onclick="switchView('table')") 📊 Таблица
+      button.toggle-btn(onclick="switchView('chart')") 📈 График
+
+    #table-view.view-content.active
+      table.stats-table
+        thead
+          tr
+            th Домен
+            th.center Доставлено
+            th.center Не доставлено
+            th.center Всего
+            th Успешная доставка
+        tbody#stats-tbody
+          each domain in domains
+            - const successRate = ((domain.delivered / domain.total) * 100).toFixed(1).replace('.0', '')
+            - const progressClass = successRate > 80 ? 'good' : successRate > 50 ? 'medium' : 'bad'
+             tr
+              td.domain-cell= domain.domain
+              td.success-cell= domain.delivered
+              td.failed-cell= domain.failed
+              td.total-cell= domain.total
+              td.progress-cell
+                .progress-container
+                  .progress-bar
+                    .progress-fill(class=progressClass style=`width: ${successRate}%`)
+                  span.progress-text= `${successRate}%`
+
+    #chart-view.view-content
+      .chart-controls
+        button.chart-btn.active(onclick="showChart('bar')") Столбцы
+        button.chart-btn(onclick="showChart('pie')") Круговая
+      .chart-container
+        canvas#statsChart
+
+    script.
+      const domainsData = !{JSON.stringify(domains)};
+      let currentChart = null;
+      const ctx = document.getElementById('statsChart').getContext('2d');
+
+      function createChart(type) {
+        if (currentChart) {
+          currentChart.destroy();
+        }
+
+        // top-10 domains for chart
+        const topDomains = domainsData
+          .sort((a, b) => (b.delivered + b.failed) - (a.delivered + a.failed))
+          .slice(0, 10);
+
+        const config = {
+          type,
+          data: {
+            labels: topDomains.map(d => d.domain),
+            datasets: [
+              {
+                label: 'Доставлено',
+                data: topDomains.map(d => d.delivered),
+                backgroundColor: 'rgba(72, 187, 120, 0.8)',
+                borderColor: 'rgb(56, 161, 105)',
+                borderWidth: 2
+              },
+              {
+                label: 'Не доставлено',
+                data: topDomains.map(d => d.failed),
+                backgroundColor: 'rgba(229, 62, 62, 0.8)',
+                borderColor: 'rgb(197, 48, 48)',
+                borderWidth: 2
+              }
+            ]
+          },
+          options: {
+            indexAxis: 'x',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: {
+                  font: { size: 14 },
+                  padding: 15
+                }
+              },
+              title: {
+                display: true,
+                text: 'Топ-10 доменов по количеству сообщений',
+                font: { size: 16, weight: 'bold' },
+                padding: 20
+              }
+            },
+            scales: type !== 'pie' ? {
+              x: {
+                stacked: false,
+                grid: { display: false }
+              },
+              y: {
+                stacked: false,
+                beginAtZero: true
+              }
+            } : {}
+          }
+        };
+
+        if (type === 'pie') {
+          config.data = {
+            labels: topDomains.map(d => d.domain),
+            datasets: [{
+              label: 'Всего сообщений',
+              data: topDomains.map(d => d.delivered + d.failed),
+              backgroundColor: [
+                '#667eea', '#764ba2', '#f093fb', '#f5576c',
+                '#4facfe', '#00f2fe', '#43e97b', '#38f9d7',
+                '#fa709a', '#fee140', '#30cfd0', '#330867',
+                '#a8edea', '#fed6e3', '#ffecd2'
+              ]
+            }]
+          };
+        }
+
+        currentChart = new Chart(ctx, config);
+      }
+
+      function switchView(view) {
+        document.querySelectorAll('.view-content').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+
+        if (view === 'table') {
+          document.getElementById('table-view').classList.add('active');
+          document.querySelectorAll('.toggle-btn')[0].classList.add('active');
+        } else {
+          document.getElementById('chart-view').classList.add('active');
+          document.querySelectorAll('.toggle-btn')[1].classList.add('active');
+          if (!currentChart) createChart('bar');
+        }
+      }
+
+      function showChart(type) {
+        document.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        createChart(type);
+      }
+
+      createChart('bar');

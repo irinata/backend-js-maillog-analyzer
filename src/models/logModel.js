@@ -1,14 +1,14 @@
 import { sql } from 'slonik';
-import baseModel from './baseModel.js';
+import { prepareInsert } from './baseModel.js';
 
-function getRecipientsAndLogsNumbersQuery() {
+export function getRecipientsAndLogsNumbersQuery() {
   return sql.unsafe`
     SELECT count(*)::INT as logs_number, count(distinct address)::INT as recs_number
     FROM log
   `;
 }
 
-function getRecipientsAndMessagesQuery(limit = 10) {
+export function getRecipientsAndMessagesQuery(limit = 10) {
   return sql.unsafe`
     SELECT address, count(*)
     FROM log
@@ -18,7 +18,7 @@ function getRecipientsAndMessagesQuery(limit = 10) {
   `;
 }
 
-function getLogsByAddressQuery(address, limit = 10) {
+export function getLogsByAddressQuery(address, limit = 10) {
   return sql.unsafe`
     SELECT l.created::text as timestamp, l.str as str
     FROM log AS l
@@ -29,21 +29,33 @@ function getLogsByAddressQuery(address, limit = 10) {
   `;
 }
 
-function logsDataExistQuery() {
+export function logsDataExistQuery() {
   return sql.unsafe`
     SELECT EXISTS(SELECT 1 FROM log LIMIT 1)
   `;
 }
 
-function insertDataQuery(data) {
+export function insertDataQuery(data) {
   const tableFields = ['created', 'int_id', 'str', 'address', 'flag', 'status'];
-  return baseModel.prepareInsert('log', tableFields, data);
+  return prepareInsert('log', tableFields, data);
 }
 
-export default {
-  getRecipientsAndLogsNumbersQuery,
-  getRecipientsAndMessagesQuery,
-  getLogsByAddressQuery,
-  logsDataExistQuery,
-  insertDataQuery,
-};
+export function getStatsQuery(limit = 10) {
+  return sql.unsafe`
+    SELECT
+      domain,
+      delivered::INT,
+      failed::INT,
+      (delivered + failed)::INT AS total
+    FROM (
+      SELECT
+        SUBSTRING (address FROM '@(.*)$' ) AS domain,
+        COUNT(CASE WHEN flag IN ('=>', '->') THEN 1 END) AS delivered,
+        COUNT(CASE WHEN flag = '**' THEN 1 END) AS failed
+      FROM log
+      GROUP BY domain
+    ) AS subquery
+    ORDER BY total DESC
+    LIMIT ${sql.fragment`${limit}`};
+  `;
+}

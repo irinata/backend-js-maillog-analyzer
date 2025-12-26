@@ -2878,6 +2878,15 @@
 2012-02-13 14:47:11 1RvjA4-000N7d-0t Spool file is locked (another process is handling this message)
 2012-02-13 14:47:12 1RwRz1-0007BJ-NU chiayin.org.ru [109.70.26.36] Operation timed out
 2012-02-13 14:47:12 1RwRz1-0007BJ-NU == ibukftol@chiayin.org.ru R=dnslookup T=remote_smtp defer (60): Operation timed out
+2012-02-15 14:40:05 1RwTtc-0002gL-P7 ** hgfghf@yourmail.ru: retry timeout exceeded
+2012-02-15 14:40:05 1RwGEc-0002dL-P7 ** fddfhgd@yourmail.ru: retry timeout exceeded
+2012-02-16 14:40:05 1RwBEc-0002nL-P7 ** fddfhgd@yourmail.ru: retry timeout exceeded
+2012-02-16 14:40:05 1RweEc-0002gL-P7 ** fddfhgd@yourmail.ru: retry timeout exceeded
+2012-02-13 14:40:05 1RwTtf-0002gL-A5 ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1RwStf-0002pM-7p ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1RwRtj-0002gL-2g ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1RwTtk-0002gL-G4 ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1RwBtl-0002gL-N8 ** gdfgsd@list.ru: retry timeout exceeded
 2012-02-13 14:47:12 1RwtRA-000Esc-J3 <= <> R=1RwRz1-0007BJ-NU U=mailnull P=local S=1158
 2012-02-13 14:47:12 1RwtRA-000Esc-J3 => :blackhole: <tpxmuwr@somehost.ru> R=blackhole_router
 2012-02-13 14:47:12 1RwtRA-000Esc-J3 Completed
@@ -2973,6 +2982,16 @@
 2012-02-13 14:48:38 1RwtSY-000DDb-0Z Completed
 2012-02-13 14:48:42 1RwRqJ-0006cG-Dt pervinkin.pp.ru [194.85.61.78] Operation timed out
 2012-02-13 14:48:42 1RwRqJ-0006cG-Dt == zhzlls@pervinkin.pp.ru R=dnslookup T=remote_smtp defer (60): Operation timed out
+2012-02-13 14:40:05 1AwTtf-0002gL-A5 ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1QwStf-0003pM-7p ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1RwRtj-0004gL-2g ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1DwTtk-0005gL-G4 ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1BwBtl-0006gL-N8 ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-13 14:40:05 1SwBtl-0007gL-N8 ** gdfgsd@list.ru: retry timeout exceeded
+2012-02-15 14:40:05 1AwTtc-0002gL-P7 ** hgfghf@yourmail.ru: retry timeout exceeded
+2012-02-15 14:40:05 1BwGEc-0003dL-P7 ** fddfhgd@yourmail.ru: retry timeout exceeded
+2012-02-16 14:40:05 1CwBEc-0004nL-P7 ** fddfhgd@yourmail.ru: retry timeout exceeded
+2012-02-16 14:40:05 1DweEc-0005gL-P7 ** fddfhgd@yourmail.ru: retry timeout exceeded
 2012-02-13 14:48:43 1RwtSc-000GtA-VA <= <> R=1RwRqJ-0006cG-Dt U=mailnull P=local S=1153
 2012-02-13 14:48:43 1RwtSc-000GtA-VA => :blackhole: <tpxmuwr@somehost.ru> R=blackhole_router
 2012-02-13 14:48:43 1RwtSc-000GtA-VA Completed
@@ -4609,6 +4628,26 @@
 2012-02-13 14:49:52 SMTP connection from mail.somehost.com [84.154.134.45] closed by QUIT
 2012-02-13 14:49:53 1RwtTh-000E4Z-7O == xmdnwgppabwp@gmail.com R=dnslookup T=remote_smtp defer (-1): domain matches queue_smtp_domains, or -odqs set
 2012-02-13 14:49:53 1RwtTh-000E4Z-HG == cbdpmo@yourmail.ru R=dnslookup T=remote_smtp defer (-1): domain matches queue_smtp_domains, or -odqs set
+2012-02-13 14:49:50 1RwGTi-000E4y-y1 => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:50 1RwgKi-000E5T-t1 => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1Rwtti-000E2H-3a => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtHi-000E6J-5J => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1Rwtli-000E8I-3B => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:50 1RwrTi-000E4z-C1 => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:50 1RwtDb-000E4z-1A => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtIt-000E4R-1J => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtHi-000E3C-3G => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtTw-000E6Y-2A => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:50 1RwtTi-000E4y-1y => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:50 1RwtKi-000E5T-1t => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtTi-000E2H-3A => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtEi-000E6J-1j => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtLi-000E8I-3b => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:50 1RwtGi-000E4z-1c => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:50 1RwtTf-000E4z-1A => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtTi-000E4R-1S => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1Rwtti-000E3C-1s => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
+2012-02-13 14:49:53 1RwtTi-000E6Y-1C => udbbwscdnbegrmloghuf@london.com R=dnslookup T=remote_smtp H=mxs.london.com.ru [154.84.92.24] C="250 OK id=1RwtTi-00036G-4R"
 2012-02-13 14:49:53 1RwtTh-000E4Z-KJ == zmprmplnq@inbox.ru R=dnslookup T=remote_smtp defer (-1): domain matches queue_smtp_domains, or -odqs set
 2012-02-13 14:49:53 1RwtTh-000E4Z-O2 == zmprmplnq@inbox.ru R=dnslookup T=remote_smtp defer (-1): domain matches queue_smtp_domains, or -odqs set
 2012-02-13 14:49:53 1RwtTh-000E4Z-S9 == pkdrxcf@mail.ru R=dnslookup T=remote_smtp defer (-1): domain matches queue_smtp_domains, or -odqs set
@@ -5429,9 +5468,24 @@
 2012-02-13 14:50:33 1RmcJ0-000MYb-0A Spool file is locked (another process is handling this message)
 2012-02-13 14:50:33 1RmcJ0-000MYb-Cx Spool file is locked (another process is handling this message)
 2012-02-13 14:50:34 1RwtT9-000E4Z-GG => bnkahhv@mail.ru R=dnslookup T=remote_smtp H=mxs.mail.ru [94.100.176.20] C="250 OK id=1RwtUP-00061t-Rf"
-2012-02-13 14:50:34 1RqMd0-000MR8-8N Spool file is locked (another process is handling this message)
-2012-02-13 14:50:34 1RgE80-000Bou-15 Spool file is locked (another process is handling this message)
-2012-02-13 14:50:34 1RwtTi-000E4Z-5q => genz@gkir.ru R=dnslookup T=remote_smtp H=mail.gkir.ru [77.37.19.162] C="250 OK id=1RwtU6-0005mv-1P"
+2012-02-13 14:40:00 1RwTEc-0002NL-P7 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:40:00 1RwTEc-0002NL-P8 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:40:00 1RwTrc-0002NL-P9 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:40:00 1RwTEc-0002NL-A7 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:40:00 1RwTec-0002NL-B7 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:40:10 1RwsGc-0002NL-P7 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:41:15 1RwTEc-0002NL-B3 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:41:15 1RwTwn-0002NL-P7 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:41:15 1RwTEc-0002NL-J5 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:42:15 1RWTEc-0002PL-P7 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:42:15 1RSTQc-0002NL-L7 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:45:15 1RwMeC-0002NL-a9 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:45:15 1RMTEc-0002NL-G4 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:45:15 1RHTEc-0002NL-H7 ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:48:22 1RwTEc-0002NL-7d ** fdasghpb@inbox.ru: retry timeout exceeded
+2012-02-13 14:58:34 1RqMd0-000MR8-8N Spool file is locked (another process is handling this message)
+2012-02-13 14:58:34 1RgE80-000Bou-15 Spool file is locked (another process is handling this message)
+2012-02-13 14:59:34 1RwtTi-000E4Z-5q => genz@gkir.ru R=dnslookup T=remote_smtp H=mail.gkir.ru [77.37.19.162] C="250 OK id=1RwtU6-0005mv-1P"
 2012-02-13 14:50:34 1RwtTi-000E4Z-5q Completed
 2012-02-13 14:50:34 1RwtTI-000E4Z-D2 => bnkahhv@mail.ru R=dnslookup T=remote_smtp H=mxs.mail.ru [94.100.176.20] C="250 OK id=1RwtUQ-0008LQ-23"
 2012-02-13 14:50:34 1RwtTT-000E4Z-GC => uencjoinzkc@hotmail.com R=dnslookup T=remote_smtp H=mx4.hotmail.com [65.55.92.136]* C="250  <xemdsjurqdxmcttobqnfdwrxxmtfkkd@whois.somehost.ru> Queued mail for delivery"

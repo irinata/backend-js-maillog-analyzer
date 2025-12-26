@@ -1,10 +1,10 @@
 import createError from 'http-errors';
 import debugLib from 'debug';
-import Log from '../services/logService.js';
+import { getLogsByAddress as getLogs, getStats as getDomainStats } from '../services/logService.js';
 
 const debug = debugLib('app:controller');
 
-async function getLogsByAddress(req, res, next) {
+export async function getLogsByAddress(req, res, next) {
   debug(`GET ${req.originalUrl}`);
 
   const address = req.params.address;
@@ -13,8 +13,8 @@ async function getLogsByAddress(req, res, next) {
     return next(createError(400, 'Email required'));
   }
 
-  debug(`Awaiting getLogsByAddress(${address}) service`);
-  const data = await Log.getLogsByAddress(address);
+  debug(`Running getLogsByAddress(${address})`);
+  const data = await getLogs(address);
 
   debug('Rendering logs page');
   res.render('logs', {
@@ -25,4 +25,18 @@ async function getLogsByAddress(req, res, next) {
   });
 }
 
-export default { getLogsByAddress };
+export async function getStats(req, res) {
+  debug(`GET ${req.originalUrl}`);
+
+  const stats = await getDomainStats();
+  const totalDelivered = stats.reduce((sum, d) => sum + d.delivered, 0);
+  const totalFailed = stats.reduce((sum, d) => sum + d.failed, 0);
+
+  res.render('stats', {
+    title: 'Статистика по доменам',
+    domains: stats,
+    totalDomains: stats.length,
+    totalDelivered,
+    totalFailed,
+  });
+}

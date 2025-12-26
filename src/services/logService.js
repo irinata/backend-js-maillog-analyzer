@@ -1,57 +1,62 @@
 import debugLib from 'debug';
-import pool from '../config/database.js';
-import logModel from '../models/logModel.js';
+import { getPool } from '../config/database.js';
+import * as logModel from '../models/logModel.js';
 import chunk from 'lodash/chunk.js';
 
 const BATCH_SIZE = 100;
 
 const debug = debugLib('app:logService');
 
-async function getRecipientsAndLogsNumbers() {
+export async function getRecipientsAndLogsNumbers() {
   debug('Fetching "getRecipientsAndLogsNumbersQuery" database query');
-  const rawLogs = await pool.one(logModel.getRecipientsAndLogsNumbersQuery());
+  const pool = getPool();
+  const result = await pool.one(logModel.getRecipientsAndLogsNumbersQuery());
 
   return {
-    logsNumber: rawLogs.logs_number,
-    recipientsNumber: rawLogs.recs_number,
+    logsNumber: result.logs_number,
+    recipientsNumber: result.recs_number,
   };
 }
 
-async function getRecipientsAndMessages() {
+export async function getRecipientsAndMessages() {
   const LIMIT = 100;
+  const pool = getPool();
   debug(`Fetching "getRecipientsAndMessagesQuery(${LIMIT})" database query`);
-  const rawLogs = await pool.any(logModel.getRecipientsAndMessagesQuery(LIMIT));
+  const result = await pool.any(logModel.getRecipientsAndMessagesQuery(LIMIT));
 
   return {
-    limit: rawLogs.length,
-    recipients: rawLogs,
+    limit: result.length,
+    recipients: result,
   };
 }
 
-async function getLogsByAddress(address) {
+export async function getLogsByAddress(address) {
   if (!address) return;
 
   const LIMIT = 100;
+  const pool = getPool();
   debug(`Fetching "getLogsByAddressQuery(${address}, ${LIMIT + 1})" database query`);
-  const rawLogs = await pool.any(logModel.getLogsByAddressQuery(address, LIMIT + 1));
+  const result = await pool.any(logModel.getLogsByAddressQuery(address, LIMIT + 1));
 
-  const exceedsLimit = Array.isArray(rawLogs) && rawLogs.length > LIMIT;
-  if (exceedsLimit) rawLogs.pop();
+  const exceedsLimit = Array.isArray(result) && result.length > LIMIT;
+  if (exceedsLimit) result.pop();
 
   return {
     exceedsLimit,
     limit: LIMIT,
-    logs: rawLogs,
+    logs: result,
   };
 }
 
-async function logsDataExist() {
+export async function logsDataExist() {
+  const pool = getPool();
   debug(`Fetching "logsDataExist" database query`);
   return await pool.oneFirst(logModel.logsDataExistQuery());
 }
 
-async function insertData(data) {
+export async function insertData(data) {
   debug('Fetching "insertDataQuery" database query');
+  const pool = getPool();
   const chunks = chunk(data, BATCH_SIZE);
 
   for (const chunk of chunks) {
@@ -63,10 +68,9 @@ async function insertData(data) {
   }
 }
 
-export default {
-  getRecipientsAndLogsNumbers,
-  getRecipientsAndMessages,
-  getLogsByAddress,
-  logsDataExist,
-  insertData,
-};
+export async function getStats() {
+  debug('Fetching "getStatsQuery" database query');
+  const pool = getPool();
+  const LIMIT = 50;
+  return await pool.any(logModel.getStatsQuery(LIMIT));
+}

@@ -1,12 +1,12 @@
 import { open } from 'node:fs/promises';
 import path from 'path';
 import parseLogFile from './services/parserService.js';
-import logService from './services/logService.js';
-import messageService from './services/messageService.js';
+import { logsDataExist, insertData as insertLogData } from './services/logService.js';
+import { insertData as insertMessageData } from './services/messageService.js';
 
 export default async function initSampleData() {
   try {
-    const logsExist = await logService.logsDataExist();
+    const logsExist = await logsDataExist();
     if (logsExist) {
       console.log('Data already exist, skipping sample load');
       return;
@@ -19,8 +19,8 @@ export default async function initSampleData() {
     const content = file.readLines();
 
     const parsed = await parseLogFile(content);
-    await messageService.insertData(parsed.messages);
-    await logService.insertData(parsed.logs);
+    await insertMessageData(parsed.messages);
+    await insertLogData(parsed.logs);
 
     console.log(parsed.messages.length + parsed.logs.length, 'records inserted into database.');
     console.log('Sample data loaded successfully!');

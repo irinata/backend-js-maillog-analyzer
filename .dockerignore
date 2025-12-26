@@ -1,0 +1,14 @@
+node_modules/
+.git
+.gitignore
+README.md
+.prettierrc.json
+.prettierignore
+jsconfig.json
+eslint.config.js
+sample-data/
+.vscode
+.npm
+*.log
+Makefile
+

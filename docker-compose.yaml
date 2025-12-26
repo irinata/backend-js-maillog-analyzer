@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgres:15-bookworm
+    env_file:
+      - .env
+    ports:
+      - '15432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  app:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - '3000:3000'
+    working_dir: /app
+    env_file:
+      - .env
+    environment:
+      APP_DB_HOST: postgres
+    command: ['npm', 'start']
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

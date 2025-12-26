@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  .container
+    .db-error-page
+      .error-icon
+      h1 Подключение к базе данных
+      
+      if status.connected
+        .status-success
+          p.status-text Подключено успешно
+      else
+        .status-error
+          p.status-text Не удалось подключиться к базе данных
+          
+          if status.attempts > 0
+            p.attempts-info Попытка #{status.attempts} из 5...
+          
+          if status.error
+            .error-details
+              p.error-message Ошибка: #{status.error}
+          
+          .retry-info
+            p Приложение продолжает попытки подключения каждые 3 секунды
+            p Пожалуйста, подождите или обновите страницу
+            
+            button.btn-reload(onclick="location.reload()") Обновить страницу
+      
+      .help-section
+        h3 Возможные причины:
+        ul
+          li База данных не запущена
+          li Неверные параметры подключения
+          li Проблемы с сетью
+          li База данных перегружена

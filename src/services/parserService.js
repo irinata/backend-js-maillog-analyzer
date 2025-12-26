@@ -1,7 +1,3 @@
-import debugLib from 'debug';
-
-const debug = debugLib('app:parser');
-
 const idRe = /id=([^\s]+)/;
 const flagRe = /^(?:=>|->|\*\*|==)$/;
 const emailRe = /^([\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}):?\s+/;
