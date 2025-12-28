@@ -50,7 +50,19 @@ async function connectDb(uri) {
   return null;
 }
 
-connectDb(DATABASE_URI);
+export async function waitForConnection(timeout = 30000) {
+  const startTime = Date.now();
+
+  while (!dbStatus.connected) {
+    if (Date.now() - startTime > timeout) {
+      throw new Error('Database connection timeout');
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
+
+  return pool;
+}
 
 export function getPool() {
   if (!pool) {
@@ -66,3 +78,5 @@ export function getDbStatus() {
 export function isDbConnected() {
   return dbStatus.connected;
 }
+
+connectDb(DATABASE_URI);

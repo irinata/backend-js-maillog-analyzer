@@ -1,7 +1,7 @@
 import express from 'express';
 import createError from 'http-errors';
 import path from 'path';
-import { getDbStatus, isDbConnected } from './config/database.js';
+import { getDbStatus, isDbConnected, waitForConnection } from './config/database.js';
 import indexRouter from './routes/index.js';
 import logRouter from './routes/logs.js';
 import initSampleData from './initData.js';
@@ -31,9 +31,6 @@ app.use('/', indexRouter);
 app.use('/logs', logRouter);
 
 app.use((req, res, next) => {
-  if (req.path === '/.well-known/appspecific/com.chrome.devtools.json') {
-    return res.status(404).send();
-  }
   next(createError.NotFound());
 });
 
@@ -52,11 +49,22 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-if (process.env.AUTO_LOAD_SAMPLE === 'true') {
-  console.log(`AUTO_LOAD_SAMPLE true`);
-  await initSampleData();
+async function startServer() {
+  try {
+    await waitForConnection();
+
+    if (process.env.AUTO_LOAD_SAMPLE === 'true') {
+      console.log('Loading sample data...');
+      await initSampleData();
+    }
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
 }
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+startServer();
