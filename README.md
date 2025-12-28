@@ -2,7 +2,13 @@
 
 #### Express + PostgreSQL + Restful API + Docker Compose
 
-### Предварительные требования
+### Демо-версия (Railway):
+
+https://backend-js-maillog-analyzer-production.up.railway.app/
+
+_В связи с использованием бесплатного тарифа, работа демо будет остановлена по окончании пробного периода._
+
+### Предварительные требования для самостоятельного запуска
 
 - Установленный [Docker](https://docs.docker.com/engine/install/)
 - Установленный [Docker Compose](https://docs.docker.com/compose/install/)
