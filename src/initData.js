@@ -12,9 +12,7 @@ export default async function initSampleData() {
       return;
     }
 
-    console.log('Loading sample data...');
-
-    const samplePath = path.join(process.cwd(), 'sample-data', 'maillog.txt');
+    const samplePath = path.join(process.cwd(), 'sample-data', 'maillog-sample.txt');
     const file = await open(samplePath);
     const content = file.readLines();
 
