@@ -17,8 +17,6 @@ function formatNumber(num) {
 
 export async function index(req, res) {
   debug(`GET ${req.originalUrl}`);
-  debug('Awaiting getRecipientsAndLogsNumbers() service');
-  debug('Awaiting getRecipientsAndMessages() service');
 
   const [data1, data2] = await Promise.all([
     getRecipientsAndLogsNumbers(),

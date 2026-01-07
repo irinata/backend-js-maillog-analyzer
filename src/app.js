@@ -2,6 +2,7 @@ import express from 'express';
 import createError from 'http-errors';
 import path from 'path';
 import { getDbStatus, isDbConnected, waitForConnection } from './config/database.js';
+import { isRedisConnected } from './config/redis.js';
 import indexRouter from './routes/index.js';
 import logRouter from './routes/logs.js';
 import initSampleData from './initData.js';
@@ -52,6 +53,12 @@ app.use((err, req, res, next) => {
 async function startServer() {
   try {
     await waitForConnection();
+
+    if (isRedisConnected()) {
+      console.log('Redis connected - caching enabled');
+    } else {
+      console.log('Redis unavailable - caching disabled');
+    }
 
     if (process.env.AUTO_LOAD_SAMPLE === 'true') {
       console.log('Loading sample data...');

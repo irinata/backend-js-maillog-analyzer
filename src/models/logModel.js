@@ -10,7 +10,7 @@ export function getRecipientsAndLogsNumbersQuery() {
 
 export function getRecipientsAndMessagesQuery(limit = 10) {
   return sql.unsafe`
-    SELECT address, count(*)
+    SELECT address, count(*)::INT
     FROM log
     GROUP BY address
     ORDER BY count(*) DESC
